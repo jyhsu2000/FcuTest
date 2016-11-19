@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
@@ -36,6 +37,8 @@ class WebhookController extends Controller
 
     private function handleMessage($messageJSON)
     {
+        \Log::info('MessageJSON: ' . $messageJSON);
+
         //設定回覆訊息
         $responseMessage = '';
         if (isset($messageJSON['text'])) {
@@ -51,7 +54,7 @@ class WebhookController extends Controller
         }
 
         \Log::info('RecipientID: ' . $recipientID);
-        \Log::info('ResponseMessage: ' . $responseMessage);
+        \Log::info('ResponseMessage: ' . $responseMessage . ' (' . Carbon::now()->toDateTimeString() . ')');
 
         //送出訊息
         $apiUrl = 'https://graph.facebook.com/v2.6/me/messages';
@@ -70,7 +73,7 @@ class WebhookController extends Controller
             ],
         ]);
 
-        \Log::info('Response: ', $response);
+        \Log::info('Response: ', $response->getBody());
 
         return true;
     }
