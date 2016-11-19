@@ -37,7 +37,7 @@ class WebhookController extends Controller
 
     private function handleMessage($messageJSON)
     {
-        \Log::info('MessageJSON: ' . $messageJSON);
+        \Log::info('MessageJSON: ', $messageJSON);
 
         //設定回覆訊息
         $responseMessage = '';
