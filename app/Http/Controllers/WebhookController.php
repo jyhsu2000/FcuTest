@@ -50,6 +50,8 @@ class WebhookController extends Controller
             $responseMessage = 'Echo: ' . $messageJSON['message']['text'];
         } elseif (isset($messageJSON['message']['attachments'])) {
             //附件檔案
+            //TODO: 依類型處理（檔案、圖片、貼圖、按讚）
+            //FIXME: 不該只處理第一個，可能會有多個檔案的情況
             $responseMessage = 'url: ' . $messageJSON['message']['attachments'][0]['payload']['url'];
         } else {
             //不處理其他類型
