@@ -51,6 +51,7 @@ class WebhookController extends Controller
         }
 
         \Log::info('RecipientID: ' . $recipientID);
+        \Log::info('ResponseMessage: ' . $responseMessage);
 
         //送出訊息
         $apiUrl = 'https://graph.facebook.com/v2.6/me/messages';
