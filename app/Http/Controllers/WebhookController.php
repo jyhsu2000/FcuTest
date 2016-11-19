@@ -39,7 +39,9 @@ class WebhookController extends Controller
         $response = $client->post('/', [
             'query' => ['access_token' => env('FB_BOT_TOKEN')],
             'json'  => [
-                'recipient' => $recipientID,
+                'recipient' => [
+                    'id' => $recipientID,
+                ],
                 'message'   => $message,
             ],
         ]);
