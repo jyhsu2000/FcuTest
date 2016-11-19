@@ -15,7 +15,7 @@ class WebhookController extends Controller
 
         //驗證
         if ($json['hub_verify_token'] == 'fcu_test_token') {
-            return response()->json($json['hub_challenge']);
+            return response()->json((int)$json['hub_challenge']);
         }
 
         if (!isset($json['message'])) {
