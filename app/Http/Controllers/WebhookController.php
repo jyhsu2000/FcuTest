@@ -23,9 +23,12 @@ class WebhookController extends Controller
         }
 
         //逐一處理每一則訊息
-        $messageJSONs = $json['entry'][0]['messaging'];
-        foreach ($messageJSONs as $messageJSON) {
-            $this->handleMessage($messageJSON);
+        $entryJSONs = $json['entry'];
+        foreach ($entryJSONs as $entryJSON) {
+            $messageJSONs = $entryJSON['messaging'];
+            foreach ($messageJSONs as $messageJSON) {
+                $this->handleMessage($messageJSON);
+            }
         }
 
         return response()->json();
@@ -50,8 +53,9 @@ class WebhookController extends Controller
         \Log::info('RecipientID: ' . $recipientID);
 
         //送出訊息
-        $client = new Client(['base_uri' => 'https://graph.facebook.com/v2.6/me/messages']);
-        $response = $client->post('/', [
+        $apiUrl = 'https://graph.facebook.com/v2.6/me/messages';
+        $client = new Client();
+        $response = $client->post($apiUrl, [
             'query' => [
                 'access_token' => env('FB_BOT_TOKEN'),
             ],
