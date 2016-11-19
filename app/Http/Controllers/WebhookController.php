@@ -28,7 +28,12 @@ class WebhookController extends Controller
             $message = 'url: ' . $json['message']['attachments'][0]['payload']['url'];
         }
 
-        $recipientID = $json['entry']['messaging']['sender']['id'];
+        $recipientID = isset($json['entry']['messaging']['sender']['id'])
+            ? $json['entry']['messaging']['sender']['id'] : null;
+        if (!$recipientID) {
+            return response()->json(['No recipientID']);
+        }
+
         //送出訊息
         $client = new Client(['base_uri' => 'https://graph.facebook.com/v2.6/me/messages']);
         $response = $client->post('/', [
