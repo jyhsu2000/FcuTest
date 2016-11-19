@@ -46,9 +46,14 @@ class WebhookController extends Controller
         //設定回覆訊息
         $responseMessage = '';
         if (isset($messageJSON['message']['text'])) {
+            //文字訊息
             $responseMessage = 'Echo: ' . $messageJSON['message']['text'];
         } elseif (isset($messageJSON['message']['attachments'])) {
+            //附件檔案
             $responseMessage = 'url: ' . $messageJSON['message']['attachments'][0]['payload']['url'];
+        } else {
+            //不處理其他類型
+            return false;
         }
 
         //回覆對象
