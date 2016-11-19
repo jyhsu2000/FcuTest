@@ -10,6 +10,9 @@ class WebhookController extends Controller
     public function index(Request $request)
     {
         $json = $request->all();
+
+        \Log::info('Request: ', $json);
+
         if (!isset($json['message'])) {
             return response()->json([]);
         }
