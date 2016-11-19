@@ -39,6 +39,10 @@ class WebhookController extends Controller
     {
         \Log::info('MessageJSON: ', $messageJSON);
 
+        //不處理機器人自己發送的訊息
+        if (isset($messageJSON['message']['is_echo']) && $messageJSON['message']['is_echo']) {
+            return false;
+        }
         //設定回覆訊息
         $responseMessage = '';
         if (isset($messageJSON['message']['text'])) {
