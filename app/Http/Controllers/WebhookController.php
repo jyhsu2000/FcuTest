@@ -44,6 +44,8 @@ class WebhookController extends Controller
             ],
         ]);
 
+        \Log::info('Response: ', $response);
+
         return response()->json();
     }
 }
