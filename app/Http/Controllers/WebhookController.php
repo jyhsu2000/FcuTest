@@ -73,7 +73,7 @@ class WebhookController extends Controller
             ],
         ]);
 
-        \Log::info('Response: ', $response->getBody());
+        \Log::info('Response: ', json_decode($response->getBody(), true));
 
         return true;
     }
