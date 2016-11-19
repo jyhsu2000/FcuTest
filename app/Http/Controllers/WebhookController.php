@@ -42,7 +42,9 @@ class WebhookController extends Controller
                 'recipient' => [
                     'id' => $recipientID,
                 ],
-                'message'   => $message,
+                'message'   => [
+                    'text' => $message,
+                ],
             ],
         ]);
 
