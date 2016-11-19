@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
-use phpDocumentor\Reflection\Types\Resource;
 
 class WebhookController extends Controller
 {
@@ -28,6 +28,17 @@ class WebhookController extends Controller
             $message = 'url: ' . $json['message']['attachments'][0]['payload']['url'];
         }
 
-        return response()->json(['message' => ['text' => $message]]);
+        $recipientID = $json['entry']['messaging']['sender']['id'];
+        //送出訊息
+        $client = new Client(['base_uri' => 'https://graph.facebook.com/v2.6/me/messages']);
+        $response = $client->post('/', [
+            'query' => ['access_token' => env('FB_BOT_TOKEN')],
+            'json'  => [
+                'recipient' => $recipientID,
+                'message'   => $message,
+            ],
+        ]);
+
+        return response()->json();
     }
 }
