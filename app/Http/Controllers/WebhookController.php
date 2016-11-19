@@ -41,10 +41,10 @@ class WebhookController extends Controller
 
         //設定回覆訊息
         $responseMessage = '';
-        if (isset($messageJSON['text'])) {
-            $responseMessage = 'Echo: ' . $messageJSON['text'];
-        } elseif (isset($messageJSON['attachments'])) {
-            $responseMessage = 'url: ' . $messageJSON['attachments'][0]['payload']['url'];
+        if (isset($messageJSON['message']['text'])) {
+            $responseMessage = 'Echo: ' . $messageJSON['message']['text'];
+        } elseif (isset($messageJSON['message']['attachments'])) {
+            $responseMessage = 'url: ' . $messageJSON['message']['attachments'][0]['payload']['url'];
         }
 
         //回覆對象
