@@ -28,8 +28,8 @@ class WebhookController extends Controller
             $message = 'url: ' . $json['message']['attachments'][0]['payload']['url'];
         }
 
-        $recipientID = isset($json['entry']['messaging']['sender']['id'])
-            ? $json['entry']['messaging']['sender']['id'] : null;
+        $recipientID = isset($json['entry'][0]['messaging'][0]['sender']['id'])
+            ? $json['entry'][0]['messaging'][0]['sender']['id'] : null;
         if (!$recipientID) {
             return response()->json(['No recipientID']);
         }
