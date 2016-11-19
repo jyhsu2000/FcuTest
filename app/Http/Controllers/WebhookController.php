@@ -18,14 +18,14 @@ class WebhookController extends Controller
             return response()->json((int)$json['hub_challenge']);
         }
 
-        if (!isset($json['message'])) {
+        if (!isset($json['entry'][0]['messaging'][0])) {
             return response()->json([]);
         }
         $message = '';
-        if (isset($json['message']['text'])) {
-            $message = 'Echo: ' . $json['message']['text'];
-        } elseif (isset($json['message']['attachments'])) {
-            $message = 'url: ' . $json['message']['attachments'][0]['payload']['url'];
+        if (isset($json['entry'][0]['messaging'][0]['text'])) {
+            $message = 'Echo: ' . $json['entry'][0]['messaging'][0]['text'];
+        } elseif (isset($json['entry'][0]['messaging'][0]['attachments'])) {
+            $message = 'url: ' . $json['entry'][0]['messaging'][0]['attachments'][0]['payload']['url'];
         }
 
         $recipientID = isset($json['entry'][0]['messaging'][0]['sender']['id'])
