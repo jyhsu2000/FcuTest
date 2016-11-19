@@ -47,7 +47,7 @@ class WebhookController extends Controller
             return false;
         }
 
-        \Log::info('RecipientID: ', $recipientID);
+        \Log::info('RecipientID: ' . $recipientID);
 
         //送出訊息
         $client = new Client(['base_uri' => 'https://graph.facebook.com/v2.6/me/messages']);
